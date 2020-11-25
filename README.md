@@ -8,6 +8,8 @@
 	Juan Abasolo, Naia Eguskiza, Lorea Unamuno
 +	[XXVII. Psikodidaktika Jardunaldiak](http://eudia-ehu.github.io/aurkezpenak/2011Psikodidaktika/) 2020-11-24  *Onlineko idazkuntza prozesua aztertzeko: IDAT*  
 	Juan Abasolo, Naia Eguskiza, Aintzane Etxebarria
++   [SEDLL Iruñea 2020](http://eudia-ehu.github.io/aurkezpenak/2011SEDLL/) 2020-11-27 *IDazketa Aztertzeko Tresnaren (IDAT): lehenengo emaitzak*  
+    Juan Abasolo, Aitor Iglesias, Lorea Unamuno
 
 ## 2019
 
