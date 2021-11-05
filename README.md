@@ -5,6 +5,8 @@
 + Hizkuntzalari Euskaldunen V. Topaketa: Kimu berriak Euskal Hizkuntzalaritzan, 2021/07/02 *[Euskara estandarra eta euskalkien arteko levelling edo berdintze-fenomenoa](http://eudia-ehu.github.io/aurkezpenak/2107_UEU/)*
   Lorea Unamuno, Naia Eguskiza, Juan Abasolo
   (Proiekzio 3D interaktiboa soilik)
++ Congreso Nacional Paraguayo de Linguistica Aplicada 2, 2021/11/12 [Acercamiento desde la lengua vasca al estudio del variacionismo lingüístico cuantitativista](http://eudia-ehu.github.io/aurkezpenak/2111CONPLA2/ponentzia/)
+  Juan Abasolo, Ariane Ensunza
 
 ## 2020
 
