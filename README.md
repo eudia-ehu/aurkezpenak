@@ -1,4 +1,9 @@
-# [EUDIA](https://www.ehu.eus/eu/web/eudia/home/) ikerketa taldearen eskutik egindako zenbait aurkezpenen biltegia
+# [EUDIA](https://eudia.ehu.eus) ikerketa taldearen eskutik egindako zenbait aurkezpenen biltegia
+
+## 2022
+
++ Goi-Mailako Hezkuntza Berrikuntza Nazioarteko Kongresua, 2022/04/06 *[Iramuteqerako euskarazko lexikoa V0.1, aurkezpena](http://eudia-ehu.github.io/aurkezpenak/2204GoiMailakoHezkuntza/lexikoa-iramuteq/)*
+  Juan Abasolo, Naia Eguskiza
 
 ## 2021
 
