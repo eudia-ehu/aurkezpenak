@@ -4,6 +4,8 @@
 
 + Goi-Mailako Hezkuntza Berrikuntza Nazioarteko Kongresua, 2022/04/06 *[Iramuteqerako euskarazko lexikoa V0.1, aurkezpena](http://eudia-ehu.github.io/aurkezpenak/2204GoiMailakoHezkuntza/lexikoa-iramuteq/)*
   Juan Abasolo, Naia Eguskiza
++ Goi-Mailako Hezkuntza Berrikuntza Nazioarteko Kongresua, 2022/04/06 *[Talde laneko idatzian banakako ekarpenei begira](http://eudia-ehu.github.io/aurkezpenak/2204GoiMailakoHezkuntza/talde-idatziak-idat/)*
+  Juan Abasolo, Naia Eguskiza
 
 ## 2021
 
