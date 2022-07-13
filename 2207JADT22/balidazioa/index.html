@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Juan Abasolo, Naia Eguskiza, Aitor Iglesias" />
+  <title>Validación de léxico en lengua vasca mediante análisis lexicométrico de un corpus paralelo multilingüe</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="JADT22-Aurkezpena-BalidazioaV0_files/reveal.js-3.3.0.1/css/reveal.css"/>
+
+
+
+<link rel="stylesheet" href="JADT22-Aurkezpena-BalidazioaV0_files/reveal.js-3.3.0.1/css/theme/night.css" id="theme">
+
+<style type="text/css">
+.reveal section img {
+  background: rgba(255, 255, 255, 0.85);
+}
+</style>
+
+  <!-- some tweaks to reveal css -->
+  <style type="text/css">
+    .reveal h1 { font-size: 2.0em; }
+    .reveal h2 { font-size: 1.5em;  }
+    .reveal h3 { font-size: 1.25em;	}
+    .reveal h4 { font-size: 1em;	}
+
+    .reveal .slides>section,
+    .reveal .slides>section>section {
+      padding: 0px 0px;
+    }
+
+
+
+    .reveal table {
+      border-width: 1px;
+      border-spacing: 2px;
+      border-style: dotted;
+      border-color: gray;
+      border-collapse: collapse;
+      font-size: 0.7em;
+    }
+
+    .reveal table th {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      font-weight: bold;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+    .reveal table td {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+
+  </style>
+
+    <style type="text/css">code{white-space: pre;}</style>
+
+
+<!-- Printing and PDF exports -->
+<script id="paper-css" type="application/dynamic-css">
+
+/* Default Print Stylesheet Template
+   by Rob Glazebrook of CSSnewbie.com
+   Last Updated: June 4, 2008
+
+   Feel free (nay, compelled) to edit, append, and
+   manipulate this file as you see fit. */
+
+
+@media print {
+
+	/* SECTION 1: Set default width, margin, float, and
+	   background. This prevents elements from extending
+	   beyond the edge of the printed page, and prevents
+	   unnecessary background images from printing */
+	html {
+		background: #fff;
+		width: auto;
+		height: auto;
+		overflow: visible;
+	}
+	body {
+		background: #fff;
+		font-size: 20pt;
+		width: auto;
+		height: auto;
+		border: 0;
+		margin: 0 5%;
+		padding: 0;
+		overflow: visible;
+		float: none !important;
+	}
+
+	/* SECTION 2: Remove any elements not needed in print.
+	   This would include navigation, ads, sidebars, etc. */
+	.nestedarrow,
+	.controls,
+	.fork-reveal,
+	.share-reveal,
+	.state-background,
+	.reveal .progress,
+	.reveal .backgrounds {
+		display: none !important;
+	}
+
+	/* SECTION 3: Set body font face, size, and color.
+	   Consider using a serif font for readability. */
+	body, p, td, li, div {
+		font-size: 20pt!important;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		color: #000;
+	}
+
+	/* SECTION 4: Set heading font face, sizes, and color.
+	   Differentiate your headings from your body text.
+	   Perhaps use a large sans-serif for distinction. */
+	h1,h2,h3,h4,h5,h6 {
+		color: #000!important;
+		height: auto;
+		line-height: normal;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		text-shadow: 0 0 0 #000 !important;
+		text-align: left;
+		letter-spacing: normal;
+	}
+	/* Need to reduce the size of the fonts for printing */
+	h1 { font-size: 28pt !important;  }
+	h2 { font-size: 24pt !important; }
+	h3 { font-size: 22pt !important; }
+	h4 { font-size: 22pt !important; font-variant: small-caps; }
+	h5 { font-size: 21pt !important; }
+	h6 { font-size: 20pt !important; font-style: italic; }
+
+	/* SECTION 5: Make hyperlinks more usable.
+	   Ensure links are underlined, and consider appending
+	   the URL to the end of the link for usability. */
+	a:link,
+	a:visited {
+		color: #000 !important;
+		font-weight: bold;
+		text-decoration: underline;
+	}
+	/*
+	.reveal a:link:after,
+	.reveal a:visited:after {
+		content: " (" attr(href) ") ";
+		color: #222 !important;
+		font-size: 90%;
+	}
+	*/
+
+
+	/* SECTION 6: more reveal.js specific additions by @skypanther */
+	ul, ol, div, p {
+		visibility: visible;
+		position: static;
+		width: auto;
+		height: auto;
+		display: block;
+		overflow: visible;
+		margin: 0;
+		text-align: left !important;
+	}
+	.reveal pre,
+	.reveal table {
+		margin-left: 0;
+		margin-right: 0;
+	}
+	.reveal pre code {
+		padding: 20px;
+		border: 1px solid #ddd;
+	}
+	.reveal blockquote {
+		margin: 20px 0;
+	}
+	.reveal .slides {
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 0 !important;
+		zoom: 1 !important;
+
+		overflow: visible !important;
+		display: block !important;
+
+		text-align: left !important;
+		-webkit-perspective: none;
+		   -moz-perspective: none;
+		    -ms-perspective: none;
+		        perspective: none;
+
+		-webkit-perspective-origin: 50% 50%;
+		   -moz-perspective-origin: 50% 50%;
+		    -ms-perspective-origin: 50% 50%;
+		        perspective-origin: 50% 50%;
+	}
+	.reveal .slides section {
+		visibility: visible !important;
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+		display: block !important;
+		overflow: visible !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 60px 20px !important;
+		z-index: auto !important;
+
+		opacity: 1 !important;
+
+		page-break-after: always !important;
+
+		-webkit-transform-style: flat !important;
+		   -moz-transform-style: flat !important;
+		    -ms-transform-style: flat !important;
+		        transform-style: flat !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+
+		-webkit-transition: none !important;
+		   -moz-transition: none !important;
+		    -ms-transition: none !important;
+		        transition: none !important;
+	}
+	.reveal .slides section.stack {
+		padding: 0 !important;
+	}
+	.reveal section:last-of-type {
+		page-break-after: avoid !important;
+	}
+	.reveal section .fragment {
+		opacity: 1 !important;
+		visibility: visible !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+	}
+	.reveal section img {
+		display: block;
+		margin: 15px 0px;
+		background: rgba(255,255,255,1);
+		border: 1px solid #666;
+		box-shadow: none;
+	}
+
+	.reveal section small {
+		font-size: 0.8em;
+	}
+
+}  
+</script>
+
+
+<script id="pdf-css" type="application/dynamic-css">
+    
+/**
+ * This stylesheet is used to print reveal.js
+ * presentations to PDF.
+ *
+ * https://github.com/hakimel/reveal.js#pdf-export
+ */
+
+* {
+	-webkit-print-color-adjust: exact;
+}
+
+body {
+	margin: 0 auto !important;
+	border: 0;
+	padding: 0;
+	float: none !important;
+	overflow: visible;
+}
+
+html {
+	width: 100%;
+	height: 100%;
+	overflow: visible;
+}
+
+/* Remove any elements not needed in print. */
+.nestedarrow,
+.reveal .controls,
+.reveal .progress,
+.reveal .playback,
+.reveal.overview,
+.fork-reveal,
+.share-reveal,
+.state-background {
+	display: none !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	text-shadow: 0 0 0 #000 !important;
+}
+
+.reveal pre code {
+	overflow: hidden !important;
+	font-family: Courier, 'Courier New', monospace !important;
+}
+
+ul, ol, div, p {
+	visibility: visible;
+	position: static;
+	width: auto;
+	height: auto;
+	display: block;
+	overflow: visible;
+	margin: auto;
+}
+.reveal {
+	width: auto !important;
+	height: auto !important;
+	overflow: hidden !important;
+}
+.reveal .slides {
+	position: static;
+	width: 100%;
+	height: auto;
+
+	left: auto;
+	top: auto;
+	margin: 0 !important;
+	padding: 0 !important;
+
+	overflow: visible;
+	display: block;
+
+	-webkit-perspective: none;
+	   -moz-perspective: none;
+	    -ms-perspective: none;
+	        perspective: none;
+
+	-webkit-perspective-origin: 50% 50%; /* there isn't a none/auto value but 50-50 is the default */
+	   -moz-perspective-origin: 50% 50%;
+	    -ms-perspective-origin: 50% 50%;
+	        perspective-origin: 50% 50%;
+}
+
+.reveal .slides section {
+	page-break-after: always !important;
+
+	visibility: visible !important;
+	position: relative !important;
+	display: block !important;
+	position: relative !important;
+
+	margin: 0 !important;
+	padding: 0 !important;
+	box-sizing: border-box !important;
+	min-height: 1px;
+
+	opacity: 1 !important;
+
+	-webkit-transform-style: flat !important;
+	   -moz-transform-style: flat !important;
+	    -ms-transform-style: flat !important;
+	        transform-style: flat !important;
+
+	-webkit-transform: none !important;
+	   -moz-transform: none !important;
+	    -ms-transform: none !important;
+	        transform: none !important;
+}
+
+.reveal section.stack {
+	margin: 0 !important;
+	padding: 0 !important;
+	page-break-after: avoid !important;
+	height: auto !important;
+	min-height: auto !important;
+}
+
+.reveal img {
+	box-shadow: none;
+}
+
+.reveal .roll {
+	overflow: visible;
+	line-height: 1em;
+}
+
+/* Slide backgrounds are placed inside of their slide when exporting to PDF */
+.reveal section .slide-background {
+	display: block !important;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: -1;
+}
+
+/* All elements should be above the slide-background */
+.reveal section>* {
+	position: relative;
+	z-index: 1;
+}
+
+/* Display slide speaker notes when 'showNotes' is enabled */
+.reveal .speaker-notes-pdf {
+	display: block;
+	width: 100%;
+	max-height: none;
+	left: auto;
+	top: auto;
+	z-index: 100;
+}
+
+/* Display slide numbers when 'slideNumber' is enabled */
+.reveal .slide-number-pdf {
+	display: block;
+	position: absolute;
+	font-size: 14px;
+}
+
+</script>
+
+
+<script>
+var style = document.createElement( 'style' );
+style.type = 'text/css';
+var style_script_id = window.location.search.match( /print-pdf/gi ) ? 'pdf-css' : 'paper-css';
+var style_script = document.getElementById(style_script_id).text;
+style.innerHTML = style_script;
+document.getElementsByTagName('head')[0].appendChild(style);
+</script>
+
+    <script src="JADT22-Aurkezpena-BalidazioaV0_files/header-attrs-2.10/header-attrs.js"></script>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+    <h1 class="title">Validación de léxico en lengua vasca mediante
+análisis lexicométrico de un corpus paralelo multilingüe</h1>
+  <h1 class="subtitle"><small><small>16th International Conference on
+Statistical Analysis of Textual Data</small></small></h1>
+    <h2 class="author">Juan Abasolo, Naia Eguskiza, Aitor Iglesias</h2>
+    <h3 class="date">6 a 8 de julio 2022, Nápoles</h3>
+</section>
+
+<section class="slide level2">
+
+<section data-background-color="#FFAAAA">
+<style type="text/css">
+body {
+  <!-- background: #ccc; -->
+  background-color: #ccc;
+  background-image: url('irudiak/beheku_JADT22-V0_zuri.png');
+  background-repeat: no-repeat;
+  background-position: bottom left;
+  background-size: 100%;}
+
+<!-- .reveal { -->
+<!--   color: #111; } -->
+  
+.reveal h1,
+.reveal h2,
+.reveal h3,
+.reveal h4,
+.reveal h5,
+.reveal h6 {
+  color: #EEE;
+ }
+</style>
+<p><img
+data-src="http://www.iramuteq.org/captures-decrans/interface/interface-classification" /></p>
+</section>
+</section>
+<section>
+<section id="section" class="title-slide slide level1"
+data-background="#FF9999">
+<h1 data-background="#FF9999"></h1>
+
+</section>
+<h3 id="objetivo">Objetivo</h3>
+<section
+id="comparar-el-desempeño-del-léxico-en-lengua-vasca-con-otros-de-probado-uso"
+class="slide level2">
+<h2>Comparar el desempeño del léxico en lengua vasca con otros de
+probado uso</h2>
+<aside class="notes">
+
+</aside>
+</section></section>
+<section>
+<section id="section-1" class="title-slide slide level1"
+data-background="#FF7777">
+<h1 data-background="#FF7777"></h1>
+
+</section>
+<h3 id="las-lenguas">Las lenguas</h3>
+<section id="section-2" class="slide level2">
+<h2></h2>
+<p><img src="JADT22-Aurkezpena-BalidazioaV0_files/figure-revealjs/unnamed-chunk-2-1.png" width="768" /></p>
+<aside class="notes">
+
+</aside>
+</section>
+<section id="section-3" class="slide level2">
+<h2></h2>
+<p><img src="JADT22-Aurkezpena-BalidazioaV0_files/figure-revealjs/unnamed-chunk-3-1.png" width="768" /></p>
+</section>
+<section id="algunas-diferencias-entre-los-léxicos"
+class="slide level2">
+<h2>Algunas diferencias entre los léxicos</h2>
+<p><img src="JADT22-Aurkezpena-BalidazioaV0_files/figure-revealjs/unnamed-chunk-4-1.png" width="768" /></p>
+</section></section>
+<section>
+<section id="section-4" class="title-slide slide level1"
+data-background="#FF5555">
+<h1 data-background="#FF5555"></h1>
+
+</section>
+<h3 id="proceso-de-construcción-del-corpus">Proceso de construcción del
+corpus</h3>
+<section id="web-scraping" class="slide level2">
+<h2>Web Scraping</h2>
+<p><img data-src="irudiak1/biblija_5bertsio.png" /></p>
+</section>
+<section id="elementos-del-corpus" class="slide level2">
+<h2>Elementos del corpus</h2>
+<p>Cartas paulinas, traducción a cinco lenguas</p>
+<ul>
+<li>Latin: Biblia Vulgata. Año <code>382</code></li>
+<li>Inglés: KJV. Año <code>1611</code></li>
+<li>Francés: Seguí. Año <code>1910</code></li>
+<li>Castellano: DHH (latam). Año <code>1966</code></li>
+<li>Vasco: EAB. Año <code>1994</code></li>
+</ul>
+</section>
+<section id="pretratamiento-del-corpus" class="slide level2">
+<h2>Pretratamiento del corpus</h2>
+<ul>
+<li>Segmentación</li>
+<li>Etiquetaje homogeneo: Carta, capitulo, versículos</li>
+</ul>
+<aside class="notes">
+<p>Este tipo de etiquetación atomiza</p>
+<p>Búsca que cada uno de los elementos que forman parte del análisis
+pueda ser recobrado</p>
+</aside>
+</section></section>
+<section>
+<section id="section-5" class="title-slide slide level1"
+data-background="#FF3333">
+<h1 data-background="#FF3333"></h1>
+
+</section>
+<h3 id="análisis">Análisis</h3>
+<section id="análisis-multidimensional-de-los-textos"
+class="slide level2">
+<h2>Análisis Multidimensional de los textos</h2>
+<p>Se realizaron con parámetros idénticos, control.</p>
+<p><img data-src="irudiak1/CHD-interfacea.png" /></p>
+<aside class="notes">
+<p>El criterio fue establecido desde el desempeño en euskera, ya que era
+ése el léxico que se pretendía evaluar.</p>
+</aside>
+</section>
+<section id="búsqueda-de-patrones-comunes" class="slide level2">
+<h2>Búsqueda de patrones comunes</h2>
+<aside class="notes">
+
+</aside>
+</section></section>
+<section>
+<section id="section-6" class="title-slide slide level1"
+data-background="#FF1111">
+<h1 data-background="#FF1111"></h1>
+
+</section>
+<h3 id="resultados">Resultados</h3>
+<section id="section-7" class="slide level2">
+<h2></h2>
+<p><img src="JADT22-Aurkezpena-BalidazioaV0_files/figure-revealjs/unnamed-chunk-5-1.png" width="768" /></p>
+</section>
+<section class="slide level2">
+
+<p><img src="JADT22-Aurkezpena-BalidazioaV0_files/figure-revealjs/unnamed-chunk-6-1.png" width="768" /></p>
+<aside class="notes">
+
+</aside>
+</section>
+<section class="slide level2">
+
+<p><small></p>
+<table>
+<caption>Descripcion de los cinco análisis</caption>
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 4%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 10%" />
+<col style="width: 6%" />
+<col style="width: 8%" />
+<col style="width: 12%" />
+<col style="width: 9%" />
+<col style="width: 17%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">léxico</th>
+<th style="text-align: right;">textos</th>
+<th style="text-align: right;">seg.</th>
+<th style="text-align: right;">form.</th>
+<th style="text-align: right;">ocur.</th>
+<th style="text-align: right;">lemas</th>
+<th style="text-align: right;">f. activas</th>
+<th style="text-align: right;">f. sup</th>
+<th style="text-align: right;">f.act.&gt;3</th>
+<th style="text-align: right;">f. por. seg.</th>
+<th style="text-align: right;">nº clases</th>
+<th style="text-align: right;">seg. clasificados</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">fr</td>
+<td style="text-align: right;">2336</td>
+<td style="text-align: right;">2438</td>
+<td style="text-align: right;">4437</td>
+<td style="text-align: right;">46342</td>
+<td style="text-align: right;">2699</td>
+<td style="text-align: right;">2427</td>
+<td style="text-align: right;">272</td>
+<td style="text-align: right;">1009</td>
+<td style="text-align: right;">19.00</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">2278</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">en</td>
+<td style="text-align: right;">2967</td>
+<td style="text-align: right;">2972</td>
+<td style="text-align: right;">2881</td>
+<td style="text-align: right;">48837</td>
+<td style="text-align: right;">2126</td>
+<td style="text-align: right;">1795</td>
+<td style="text-align: right;">331</td>
+<td style="text-align: right;">880</td>
+<td style="text-align: right;">16.43</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">2825</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">es</td>
+<td style="text-align: right;">2663</td>
+<td style="text-align: right;">2669</td>
+<td style="text-align: right;">4759</td>
+<td style="text-align: right;">45740</td>
+<td style="text-align: right;">2492</td>
+<td style="text-align: right;">2368</td>
+<td style="text-align: right;">121</td>
+<td style="text-align: right;">996</td>
+<td style="text-align: right;">17.14</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">2530</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">la</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">5984</td>
+<td style="text-align: right;">30209</td>
+<td style="text-align: right;">2846</td>
+<td style="text-align: right;">2735</td>
+<td style="text-align: right;">108</td>
+<td style="text-align: right;">1064</td>
+<td style="text-align: right;">14.95</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">1887</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">eu</td>
+<td style="text-align: right;">2669</td>
+<td style="text-align: right;">2669</td>
+<td style="text-align: right;">6544</td>
+<td style="text-align: right;">32143</td>
+<td style="text-align: right;">3759</td>
+<td style="text-align: right;">3453</td>
+<td style="text-align: right;">178</td>
+<td style="text-align: right;">1124</td>
+<td style="text-align: right;">12.04</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">2515</td>
+</tr>
+</tbody>
+</table>
+<p></small></p>
+</section>
+<section id="section-8" class="slide level2">
+<h2></h2>
+<p><img src="JADT22-Aurkezpena-BalidazioaV0_files/figure-revealjs/unnamed-chunk-7-1.png" width="768" /></p>
+<aside class="notes">
+<p>Los textos son una unidad en la que se búscan los componenetes, he
+ahí el porqué realizar un análisis descendente, que busca los elementos
+con los que se compone la unidad.</p>
+<p>Al buscar las posibles agrupaciones entre diferentes análisis
+realizados sobre diferentes textos con diferentes léxicos, las
+agrupaciones se tienen que calcular de manera ascendente, ya que se
+buscan las posibles agrupaciones.</p>
+<p>La primera agrupación en formarse y la última en unirse está marcada
+en rojo. A ese volvemos la atención</p>
+</aside>
+</section>
+<section id="section-9" class="slide level2">
+<h2></h2>
+<p><img src="JADT22-Aurkezpena-BalidazioaV0_files/figure-revealjs/unnamed-chunk-8-1.png" width="768" /></p>
+<aside class="notes">
+
+</aside>
+</section>
+<section id="section-10" class="slide level2">
+<h2></h2>
+<p><img src="JADT22-Aurkezpena-BalidazioaV0_files/figure-revealjs/bilaketaQuantedan-1.png" width="768" /></p>
+<aside class="notes">
+
+</aside>
+</section></section>
+<section>
+<section id="section-11" class="title-slide slide level1"
+data-background="#CC0000">
+<h1 data-background="#CC0000"></h1>
+
+</section>
+<h3 id="siguientes-pasos">Siguientes pasos</h3>
+<section id="ampliación-del-tipo-de-textos-a-analizar"
+class="slide level2">
+<h2>Ampliación del tipo de textos a analizar</h2>
+</section>
+<section id="difusión-y-utilización-httpsosf.iot8jev"
+class="slide level2">
+<h2>Difusión y utilización <a href="https://osf.io/t8jev/"
+class="uri">https://osf.io/t8jev/</a></h2>
+<p><img src="irudiak1/OSF_prest.png" width="535" /></p>
+</section>
+<section id="limites" class="slide level2">
+<h2>Limites</h2>
+<ul>
+<li class="fragment">Elementos del corpus</li>
+<li class="fragment">Construcción del corpus</li>
+<li class="fragment">Sobrelematización del lexico vasco</li>
+</ul>
+</section></section>
+<section id="juan-abasolo---naia-eguskiza---aitor-iglesias"
+class="title-slide slide level1" style="color:grey;"
+data-background="#AA0000">
+<h1 style="color:grey;" data-background="#AA0000">Juan <span
+style="color:#FFFFFF">Abasolo</span> - Naia <span
+style="color:#FFFFFF">Eguskiza</span> - Aitor <span
+style="color:#FFFFFF">Iglesias</span></h1>
+<p><br><br><span style="color:#555">contacto :</span>
+<code>juan . abasolo @ ehu . eus</code></p>
+</section>
+    </div>
+  </div>
+
+  <script src="JADT22-Aurkezpena-BalidazioaV0_files/reveal.js-3.3.0.1/lib/js/head.min.js"></script>
+  <script src="JADT22-Aurkezpena-BalidazioaV0_files/reveal.js-3.3.0.1/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Display controls in the bottom right corner
+        controls: true,
+        // Display a presentation progress bar
+        progress: true,
+        // Push each slide change to the browser history
+        history: true,
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+        // Enable the slide overview mode
+        overview: true,
+        // Vertical centering of slides
+        center: true,
+        // Enables touch navigation on devices with touch input
+        touch: true,
+        // Turns fragments on and off globally
+        fragments: true,
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+        // Transition style
+        transition: 'fade', // none/fade/slide/convex/concave/zoom
+        // Transition speed
+        transitionSpeed: 'default', // default/fast/slow
+        // Transition style for full page slide backgrounds
+        backgroundTransition: 'default', // none/fade/slide/convex/concave/zoom
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: 'JADT22-Aurkezpena-BalidazioaV0_files/reveal.js-3.3.0.1/plugin/notes/notes.js', async: true },
+        ]
+      });
+    </script>
+  <!-- dynamically load mathjax for compatibility with self-contained -->
+  <script>
+    (function () {
+      var script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+      document.getElementsByTagName("head")[0].appendChild(script);
+    })();
+  </script>
+
+<script>
+  (function() {
+    if (window.jQuery) {
+      Reveal.addEventListener( 'slidechanged', function(event) {  
+        window.jQuery(event.previousSlide).trigger('hidden');
+        window.jQuery(event.currentSlide).trigger('shown');
+      });
+    }
+  })();
+</script>
+
+
+  </body>
+</html>

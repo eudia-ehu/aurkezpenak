@@ -6,6 +6,11 @@
   Juan Abasolo, Naia Eguskiza
 + Goi-Mailako Hezkuntza Berrikuntza Nazioarteko Kongresua, 2022/04/06 *[Talde laneko idatzian banakako ekarpenei begira](http://eudia-ehu.github.io/aurkezpenak/2204GoiMailakoHezkuntza/talde-idatziak-idat/)*
   Juan Abasolo, Naia Eguskiza
++ 16th International Conference on Statistical Analysis of Textual Data, 2022/07/06 *[Validación de léxico en lengua vasca mediante análisis lexicométrico de un corpus paralelo multilingüe](http://eudia-ehu.github.io/aurkezpenak/2207JADT22/balidazioa/)*.  
+  Juan Abasolo, Naia Eguskiza, Aitor Iglesias
++ 16th International Conference on Statistical Analysis of Textual Data, 2022/07/07 *[Construcción de un léxico en lengua vasca para su utilización con el software IRaMuTeQ](http://eudia-ehu.github.io/aurkezpenak/2207JADT22/lexikoa/)*.  
+  Juan Abasolo, Naia Eguskiza, Aitor Iglesias
+  
 
 ## 2021
 
